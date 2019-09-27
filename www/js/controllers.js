@@ -20,7 +20,7 @@ angular.module('app.controllers', [])
                 $ionicLoading.hide();
             }, function(){
                 $ionicLoading.hide();
-                $cordovaToast.show('Loading Failed, Drag down to reload!', 'long', 'center')
+                window.plugins.toast.showShortTop('Failed to Load!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})
             });
             $http.get("https://tjkonnect.herokuapp.com/api/public/promoted_videos").then(function (res) {
                 console.log('res',res.data[0]);
