@@ -1,0 +1,22 @@
+<ion-view title="My subscriptions" id="page4">
+  <ion-nav-buttons side="right" class="has-header">
+    <button class="button button-icon icon ion-android-more-vertical"></button>
+  </ion-nav-buttons>
+  <ion-content padding="true" class="has-header">
+      <div class="subscription-row row">
+          <div class="col" ng-repeat="sub in subscriptions">
+              <img id="sub-image" ng-src="{{'https://tjkonnect.herokuapp.com' + sub.profilePics }}" />
+          </div>
+
+      </div>
+      <ion-refresher slot="fixed" on-refresh="doRefresh()">
+          <ion-refresher-content pulling-icon="arrow-dropdown"
+                                 pulling-text="Pull to refresh"
+                                 refreshing-spinner="circles"
+                                 refreshing-text="Refreshing...">
+
+          </ion-refresher-content>
+      </ion-refresher>
+
+  </ion-content>
+</ion-view>

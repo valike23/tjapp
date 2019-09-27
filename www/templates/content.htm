@@ -1,0 +1,251 @@
+﻿<ion-view title="{{content.name}}" id="content">
+    <ion-nav-buttons side="left" class="has-header">
+        <button ng-click="nav()" class="button button-icon icon ion-ios-arrow-left"></button>
+    </ion-nav-buttons>
+    <ion-content class="has-header padding">
+        <div id="video" ng-show="con.contentType == 'video'">
+            <video style="width:100%; background-image:url('./img/video.jpg'); background-size:cover" controls>
+
+                <source id="mysrc" type="video/mp4">
+            </video>
+            <hr />
+            <div class="row padding-left">
+                <div style="" class="col-90 padding-left">
+                    <strong style="font-size:16px; word-spacing:3px"> {{con.name}} </strong>
+                </div>
+                <div class="col-10">
+                    <span ng-click="showDescription()" ng-show="description" class="ion ion-chevron-down pull-right"></span>
+                    <span ng-click="hideDescription()" ng-hide="description" class="ion ion-chevron-up pull-right"></span>
+
+                </div>
+            </div>
+            <br />
+            <div class="padding row">
+                <span class="col-33 text-center">
+                    <i ng-click="like(con.id, 1)" style="font-size:35px;color:blue " ng-show="liked" class="ion ion-thumbsup"></i>
+                    <i ng-click="like(con.id, 1)" style="font-size:35px;" ng-hide="liked" class="ion ion-thumbsup"></i><br />
+                    <i class="text-center">{{con.likes}}</i>
+                </span>
+                <span class="col-33 text-center">
+                    <i ng-click="like(con.id,0)" style="font-size:35px; color:blue" class="ion ion-thumbsdown" ng-show="disliked"></i>
+                    <i ng-click="like(con.id,0)" style="font-size:35px" class="ion ion-thumbsdown" ng-hide="disliked"></i>
+                    <br />
+                    <i class="text-center">{{con.dislikes}}</i>
+                </span>
+                <span class="col-33 text-center">
+                    <i style="font-size:35px" class="ion ion-eye"></i><br />
+                    <i class="text-center">{{con.viewed}}</i>
+                </span>
+            </div>
+            <div>
+                <div class="row" ng-show="description">
+                    <div class="col-xs-12">
+                        <small>Published on {{con.uploaded | date: long}}</small>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+                <div class="row" ng-show="description">
+                    <div class="col-xs-12" style="font-weight:500">
+                        {{con.description}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-show="con.contentType == 'audio'">
+            <div style="width:100%; height:calc(100vw/2); background-image:url('./img/download.png'); background-size:cover" class="w3-display-container">
+                <audio class="w3-display-bottommiddle" controls>
+
+                    <source id="mysrc" type="audio/mp3">
+                </audio>
+            </div>
+
+            <hr />
+            <div class="row padding-left">
+                <div style="" class="col-90 padding-left">
+                    <strong style="font-size:16px; word-spacing:3px"> {{con.name}} </strong>
+                </div>
+                <div class="col-10">
+                    <span ng-click="showDescription()" ng-show="description" class="ion ion-chevron-down pull-right"></span>
+                    <span ng-click="hideDescription()" ng-hide="description" class="ion ion-chevron-up pull-right"></span>
+                </div>
+            </div>
+            <br />
+            <div class="padding row">
+                <span class="col-33 text-center">
+                    <i ng-click="like(con.id, 1)" style="font-size:35px;color:blue " ng-show="liked" class="ion ion-thumbsup"></i>
+                    <i ng-click="like(con.id, 1)" style="font-size:35px;" ng-hide="liked" class="ion ion-thumbsup"></i><br />
+                    <i class="text-center">{{con.likes}}</i>
+                </span>
+                <span class="col-33 text-center">
+                    <i ng-click="like(con.id,0)" style="font-size:35px; color:blue" class="ion ion-thumbsdown" ng-show="disliked"></i>
+                    <i ng-click="like(con.id,0)" style="font-size:35px" class="ion ion-thumbsdown" ng-hide="disliked"></i>
+                    <br />
+                    <i class="text-center">{{con.dislikes}}</i>
+                </span>
+                <span class="col-33 text-center">
+                    <i style="font-size:35px" class="ion ion-eye"></i><br />
+                    <i class="text-center">{{con.viewed}}</i>
+                </span>
+            </div>
+           
+            <div>
+                <div class="row" ng-show="description">
+                    <div class="col-xs-12">
+                        <small>Published on {{con.uploaded | date: long}}</small>
+                    </div>
+                    <br />
+                    <br/>
+                </div>
+                <div class="row" ng-show="description">
+                    <div class="col-xs-12" style="font-weight:500">
+                        {{con.description}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div ng-show="con.contentType == 'post' || con.contentType == 'image'">
+            <div class="row padding" style="padding-left: 20px">
+                <div class="col-30 contentImage" style="background-image:url({{content.thumbnail}})"></div>
+                <div class="col-70 " style="text-align:center; padding-left:4px">
+                    <strong> {{content.uploader}}</strong><br />
+                    <small>{{con.uploaded | date : long}}</small>
+                </div>
+                <br />
+
+            </div>
+            <br />
+            <div><strong>{{con.name}}</strong></div>
+            <div>{{con.src}}</div>
+            <br />
+            <div>
+                <img src="{{con.thumbnail}}" style="width:100%; height:calc(100vw/1.8)" />
+
+            </div>
+            <br />
+            <div class="padding row">
+                <span class="col-33 text-center">
+                    <i ng-click="like(con.id, 1)" style="font-size:35px;color:blue " ng-show="liked" class="ion ion-thumbsup"></i>
+                    <i ng-click="like(con.id, 1)" style="font-size:35px;" ng-hide="liked" class="ion ion-thumbsup"></i><br />
+                    <i class="text-center">{{con.likes}}</i>
+                </span>
+                <span class="col-33 text-center">
+                    <i ng-click="like(con.id,0)" style="font-size:35px; color:blue" class="ion ion-thumbsdown" ng-show="disliked"></i>
+                    <i ng-click="like(con.id,0)" style="font-size:35px" class="ion ion-thumbsdown" ng-hide="disliked"></i>
+                    <br />
+                    <i class="text-center">{{con.dislikes}}</i>
+                </span>
+                <span class="col-33 text-center">
+                    <i style="font-size:35px" class="ion ion-eye"></i><br />
+                    <i class="text-center">{{con.viewed}}</i>
+                </span>
+            </div>
+        </div>
+        <hr />
+        <div>
+
+        </div>
+        <div class="row" style="padding-left:35px">
+            <div class="col-50">
+                <div class="row">
+                    <div class="col-30 padding-left contentImage" style="background-image:url({{content.thumbnail}})"></div>
+                    <div class="col-70 " style="text-align:center; padding-left:4px">
+                        <strong> {{content.uploader}}</strong><br />
+                        <small>{{con.subscribers + " subscribers"}}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-50">
+                <div class="btn-group btn-group-justified">
+                    <button class="btn btn-danger" style="width:90%" ng-click="subscribe()" ng-show="!sub.present">
+                        SUBSCRIBE
+                    </button>
+                    <button class="btn btn-default" style="width:90%" ng-click="RemoveSubscription()" ng-show="sub.present">
+                        SUBSCRIBED
+                    </button>
+                    <span ng-click="removeNotification()" ng-show="sub.notified" style="width:20%;font-size:30px; " class="btn btn-sm ion ion-ios-bell"></span>
+                    <span ng-click="addNotification()" ng-hide="sub.notified" style="width:20%;font-size:30px;" class="btn btn-sm ion ion-ios-bell-outline"></span>
+                </div>
+
+            </div>
+            <div>
+
+            </div>
+        </div>
+        <hr />
+        <div>
+            <div class="row" ng-repeat="similar in similars" ng-click="navItem(similar)">
+                <div class="col-50 padding">
+                    <img style="width:100%; height:calc(100vw/5)" src="{{similar.thumbnail}}" />
+                </div>
+                <div class="col-50 padding">
+                    <div>{{similar.name}}</div>
+                    <div class="row responsive-sm">
+                        <div class="col-50"><small>{{similar.uploader}}</small></div>
+                        <div class="col-50"><small>{{similar.viewed + " views"}} </small></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="padding-left"> {{comments.length}} Comments </div>
+        <form ng-submit="sendComment()">
+            <ion-item>
+                <ion-label>Comment</ion-label>
+                <input style="width:100%; height:40px; border:none" id="myComment" placeholder="write your comment here " />
+            </ion-item>
+        </form>
+
+        <div class="row" style="height:50%; padding-left:calc(100vw/3); padding-top:calc(100vh/6)" ng-show="commentLoader">
+            <ion-spinner name="crescent"></ion-spinner>`
+        </div>
+        <div ng-hide="commentLoader">
+            <div style="padding-left:20px; padding-top:10px; border-bottom:1px thin black" class="row" ng-repeat="comment in comments">
+                <div class="col-30   ">
+                    <div class="contentImage" style="background-image:url('{{content.thumbnail}}')">
+
+                    </div>
+                </div>
+                <div class="col-70" style="margin-left:6px; margin-top:3px">
+                    <div><small>{{comment.username + "  . " }} {{comment.created | date: short}}</small> </div>
+                    <div>{{comment.comment}}</div><br />
+                    <div class="row">
+                        <div class="col-30">
+                            <button ng-click="flipComment(comment)">reply</button>
+                        </div>
+                        <form class="col-70" style="margin-left:5px" ng-submit="submitReply(null, comment.myReply, comment.id)">
+
+                            <input ng-model="comment.myReply" class="w3-input w3-animate-input" autofocus ng-hide="comment.replied == undefined || comment.replied == false" style="width:70%; height:40px; border:none; margin-bottom:2px" placeholder="reply {{comment.username}}" />
+                        </form>
+                    </div>
+                    <a ng-show="comment.reply == undefined || comment.reply == false" ng-click="flipReply(comment)">VIEW {{comment.replies.length}} REPLIES</a>
+                    <a ng-show="comment.reply" ng-click="flipReply(comment)">HIDE {{comment.replies.length}} REPLIES</a>
+                    <br />
+                    <div ng-show="comment.reply != undefined && comment.reply " ng-repeat="reply in comment.replies" class="row">
+                        <div class="commentImage col-30">
+                            <div class="commentImage" style="background-image:url('{{content.thumbnail}}')">
+
+                            </div>
+                        </div>
+                        <div class="col-70">
+                            <div><small>{{reply.username + "  . " }} {{reply.created | date: short}}</small> </div>
+                            <div><a ng-hide="reply.replying == null || reply.replying == 'null'">{{'@' + reply.replying + ' '}}</a>{{reply.comment}}</div><br />
+                            <div class="row">
+                                <div class="col-30">
+                                    <button ng-click="flipCommentReply(comment, reply)">reply</button>
+                                </div>
+                                <form class="col-70" style="margin-left:5px" ng-submit="submitReply(reply.username, reply.reply, comment.id)">
+                                    <input ng-model="reply.reply" ng-hide="reply.replied == undefined || reply.replied == false" class="w3-input w3-animate-input" placeholder=' {{"reply " + reply.username}}' autofocus style="width:70%; height:40px; border:none" />
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

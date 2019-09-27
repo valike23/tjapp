@@ -1,0 +1,38 @@
+#slideContainer{
+    margin-left: 1px;
+    }
+#slideParent {
+    margin-left: -2px;
+    margin-top: -10px;
+   }
+.subscription-row {
+    overflow: auto;
+    width: 100%;
+    margin-left: -2px;
+    margin-top: -10px;
+}
+#sub-image {
+   
+}
+#profilePics{
+    width: calc(100vh/10);
+    height: calc(100vh/10);
+    border-radius: 50%
+}
+#videoBG{
+    background-size:cover;
+    background-color:green;
+    height: 70%
+}
+.contentImage {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background-size: cover
+}
+.commentImage {
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    background-size: cover
+}

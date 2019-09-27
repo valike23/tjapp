@@ -1,0 +1,31 @@
+<ion-view title="My Accounts" id="page5">
+    <ion-nav-buttons side="right" class="has-header">
+        <button ng-click="details($event)" class="button button-icon icon ion-android-more-vertical"></button>
+    </ion-nav-buttons>
+    <ion-content padding="true" class="has-header" style="">
+        <div ng-show="logged">
+            <div class="row">
+                <div class="col col-75">
+                    <img id="profilePics" src="{{'https://tjkonnect.herokuapp.com' + user.profilePics}}" />
+                </div>
+                <div class="col col-25">
+                    <button class="button button-assertive" ng-click="upload()" > upload </button>
+                </div>
+            </div>
+            </div>
+
+
+
+
+
+        <div ng-hide="logged" style="padding-top:calc(100vh/4)">
+            <div id="login">
+                <button class="button button-block button-assertive" ui-sref="tabs.login">Login</button>
+            </div>
+            
+            <div id="signup">
+                <button class="button button-block button-royal" ui-sref="tabs.signup">Register</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

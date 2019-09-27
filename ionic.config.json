@@ -1,0 +1,17 @@
+{
+  "name": "tjconnect",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic1",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "scss/**/*",
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
+}

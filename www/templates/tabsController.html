@@ -1,0 +1,19 @@
+<ion-view id="tabs">
+  <ion-tabs class="tabs-stable tabs-icon-top" >
+    <ion-tab title="Home" icon="ion-ios-home" href="#/tabs/home">
+      <ion-nav-view name="home"></ion-nav-view>
+    </ion-tab>
+    <ion-tab title="Trending" icon="ion-flame" href="#/tabs/trend">
+      <ion-nav-view name="trend"></ion-nav-view>
+    </ion-tab>
+    <ion-tab title="subscription" icon="ion-filing" href="#/tabs/subs" ng-if="logged">
+      <ion-nav-view name="sub"></ion-nav-view>
+    </ion-tab>
+    <ion-tab title="account" icon="ion-android-person" href="#/tabs/accounts" >
+      <ion-nav-view name="accounts"></ion-nav-view>
+    </ion-tab>
+    <ion-tab title="library" icon="ion-android-folder" href="#/tabs/library">
+      <ion-nav-view name="lib"></ion-nav-view>
+    </ion-tab>
+  </ion-tabs>
+</ion-view>
