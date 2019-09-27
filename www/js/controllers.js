@@ -1,9 +1,9 @@
 angular.module('app.controllers', [])
 
-    .controller('homeCtrl', ['$scope', '$stateParams', '$http', '$ionicLoading', '$rootScope','$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('homeCtrl', ['$scope', '$stateParams', '$http', '$ionicLoading', '$rootScope','$state','$cordovaToast', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, $http, $ionicLoading, $rootScope,$state) {
+        function ($scope, $stateParams, $http, $ionicLoading, $rootScope,$state,$cordovaToast) {
             $scope.showContent = function (content) {
 
                 $rootScope.content = content;
@@ -18,6 +18,9 @@ angular.module('app.controllers', [])
                 console.log(res.data[0]);
                 $scope.competitions = res.data[0];
                 $ionicLoading.hide();
+            }, function(){
+                $ionicLoading.hide();
+                $cordovaToast.show('Loading Failed, Drag down to reload!', 'long', 'center')
             });
             $http.get("https://tjkonnect.herokuapp.com/api/public/promoted_videos").then(function (res) {
                 console.log('res',res.data[0]);

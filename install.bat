@@ -1,1 +1,1 @@
-cordova plugin add cordova-plugin-camera
+cordova plugin add https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git

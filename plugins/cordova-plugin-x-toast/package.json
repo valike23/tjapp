@@ -1,0 +1,70 @@
+{
+  "_from": "git+https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
+  "_id": "cordova-plugin-x-toast@2.7.2",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-plugin-x-toast",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
+    "rawSpec": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
+    "saveSpec": "git+https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
+    "fetchSpec": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git#82f72d2da73b82232339ccd0ca0c81472533f6dc",
+  "_spec": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
+  "_where": "C:\\Users\\User\\source\\repos\\app-3449626\\app-3449626\\app-3449626\\tjapp",
+  "author": {
+    "name": "Eddy Verbruggen",
+    "email": "eddyverbruggen@gmail.com",
+    "url": "https://github.com/EddyVerbruggen"
+  },
+  "bugs": {
+    "url": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-x-toast",
+    "platforms": [
+      "ios",
+      "android",
+      "wp8",
+      "windows",
+      "blackberry10"
+    ]
+  },
+  "deprecated": false,
+  "description": "This plugin allows you to show a Toast. A Toast is a little non intrusive buttonless popup which automatically disappears.",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "homepage": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin#readme",
+  "keywords": [
+    "Toast",
+    "Notification",
+    "Message",
+    "Alert",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android",
+    "cordova-wp8",
+    "cordova-windows",
+    "cordova-blackberry10"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-x-toast",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git"
+  },
+  "version": "2.7.2"
+}
