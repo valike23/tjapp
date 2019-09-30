@@ -137,35 +137,41 @@ angular.module('app.controllers', [])
 
         }])
 
-    .controller('myAccountsCtrl', ['$scope', '$stateParams', '$ionicPopover', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('myAccountsCtrl', ['$scope', '$stateParams', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, $ionicPopover, $ionicPopup) {
-            var template = `<ion-popover-view class='card' style='margin-top:3px;height: 200px'>
-<ion-header-bar class=' bar-assertive'>
-         <h3 class = "title">Options</h3>
-      </ion-header-bar>
-<ion-content>
-        <div class = "list">
+        function ($scope, $stateParams, $ionicPopup) {
+           
+            $scope.contents = true;
+            $scope.content = false;
+            $scope.competition = false;
+            $scope.nav = function (ele) {
+                document.getElementById("Acontent").classList.remove("mactive");
+                document.getElementById("Acontents").classList.remove("mactive");
+                document.getElementById("Acompetition").classList.remove("mactive");
+                document.getElementById(ele).classList.add("mactive");
+                if (ele == 'Acontent') {
+                    $scope.contents = false;
+                    $scope.content = true;
+                    $scope.competition = false;
+                }
+                if (ele == 'Acontents') {
+                    $scope.contents = true;
+                    $scope.content = false;
+                    $scope.competition = false;
+                }
+                if (ele == 'Acompetition') {
+                    $scope.contents = false;
+                    $scope.content = false;
+                    $scope.competition = true;
+                }
 
-<div class = "item item-icon-left " style='border-bottom:solid black 1px'>
-      <i class = "icon ion-settings"></i>
-     settings
-   </div>
- 
-   <div class = "item item-icon-left " style='border-bottom:solid black 1px'>
-      <i class = "icon ion-power"></i>
-     Log out
-   </div>
-</div>
- </ion-content>
-</ion-popover-view>`;
+            }
+            
             $scope.details = function () {
 
             }
-            $scope.popover = $ionicPopover.fromTemplate(template, {
-                scope: $scope
-            });
+       
             $scope.details = function ($event) {
                 $scope.popover.show($event);
             };
@@ -843,3 +849,4 @@ angular.module('app.controllers', [])
 
 
         }])
+   

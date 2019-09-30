@@ -30,6 +30,22 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
     })
 
     .run(function ($rootScope, $http) {
+      
+            window['counter'] = 0;
+            var snackbarContainer = document.querySelector('#demo-toast-example');
+            
+        $rootScope.showToast =  function  () {
+            'use strict';
+            var data = { message: 'Example Message # ' + ++counter };
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+        }
+   
+        $rootScope.logout = function () {
+            localStorage.removeItem("user");
+            $rootScope.logged = false;
+            $rootScope.user = null;
+
+        }
         var user = localStorage.getItem("user");
         console.log(user);
         if (user) {

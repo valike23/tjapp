@@ -36,3 +36,11 @@
     width: 30px;
     background-size: cover
 }
+.mactive{
+    border-bottom: 2px solid red;
+}
+.tab{
+font-weight:400;
+font-size:17px;
+text-align: center
+}
