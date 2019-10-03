@@ -522,7 +522,7 @@ angular.module('app.controllers', [])
                 })
                 $http.get("https://tjkonnect.herokuapp.com/api/public/content/" + $rootScope.content.id).then(function (res) {
                     $ionicLoading.hide();
-                    console.log(res.data[0]);
+                    console.log("con",res.data[0]);
                     var data = res.data[0];
                    
                     $rootScope.con = res.data[0][0];
