@@ -167,9 +167,25 @@ angular.module('app.controllers', [])
 
     .controller('myAccountsCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', '$http', '$rootScope','$ionicPopover',
         function ($scope, $stateParams, $ionicPopup, $ionicLoading, $http, $rootScope, $ionicPopover) {
+            $scope.upload = function () {
+                alert("entered");
+                navigator.camera.getPicture(function (imageData) {
+                    console.log("success");
+                    alert("success")
+                }, function () {
+                    alert("working")
+                    }, {
+                         
+                        quality: 50,
+                        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+                        destinationType: navigator.camera.DestinationType.FILE_URI,
+                    
+                        MediaType: Camera.MediaType.ALLMEDIA
+                    });
+            }
             var template = `
  <ion-popover-view style='height:calc(100vw/5); margin-top:10px; width:20%' class=" dropdown-menu padding">
-<li class='menu_item'><a>ok</a></li>
+<li class='menu_item' ng-click='upload()'><a>ok</a></li>
 <li ng-click='removePop();logout()' class='menu_item'><a>Log Out</a></li>
         </ion-popover-view>
 `;
@@ -259,15 +275,7 @@ angular.module('app.controllers', [])
             }
           
             console.log(navigator);
-            $scope.upload = function () {
-                navigator.camera.getPicture(function () {
-                    console.log("success");
-                }, function () {
-                    console.log("working")
-                }, {
-                        MediaType: Camera.MediaType.ALLMEDIA
-                    });
-            }
+          
         }])
 
     .controller('myLibraryCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -478,6 +486,51 @@ angular.module('app.controllers', [])
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $stateParams, $ionicLoading, $http, $rootScope, $state) {
+            $scope.saved = false;
+            $http({
+                method: 'GET',
+                headers: {
+                    'token': localStorage.getItem('token')
+                },
+                url: 'https://tjkonnect.herokuapp.com/api/private/issaved/' + $rootScope.content.id
+            }).
+                then(
+                    function (res) {
+                        console.log("saved", res);
+                        try {
+                            if (res.data.length == 1) {
+                                $scope.saved = true;
+                            }
+
+                        } catch (e) {
+
+                        }
+                    }, function (err) {
+                       
+                    })
+            $scope.save = function (content) {
+                let mdata = {
+                    id : content
+                }
+                $http({
+                    method: 'POST',
+                    headers: {
+                        'token': localStorage.getItem('token')
+                    },
+                    url: 'https://tjkonnect.herokuapp.com/api/private/saved',
+                    data: mdata
+                }).then(
+                    function (res) {
+                        $scope.saved = true;
+                        alert("content added successfully");
+
+                    },
+                    function (err) {
+                        console.log(err);
+                        alert("the content was not added, try later.");
+                    })
+            }
+            
             $scope.navItem = function (similar) {
                 $rootScope.content = similar;
                 console.log($rootScope.content);

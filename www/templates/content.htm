@@ -4,7 +4,7 @@
     </ion-nav-buttons>
     <ion-content class="has-header padding">
         <div id="video" ng-show="con.contentType == 'video'">
-            <video src="{{con.securedSrc | trustUrl}}"  style="width:100%; background-image:url('./img/video.jpg'); background-size:cover" controls>
+            <video autoplay src="{{con.securedSrc | trustUrl}}"  style="width:100%; background-image:url('./img/video.jpg'); background-size:cover" controls>
 
                 
             </video>
@@ -21,18 +21,24 @@
             </div>
             <br />
             <div class="padding row">
-                <span class="col-33 text-center">
+                <span class="col-25 text-center">
                     <i ng-click="like(con.id, 1)" style="font-size:35px;color:blue " ng-show="liked" class="ion ion-thumbsup"></i>
                     <i ng-click="like(con.id, 1)" style="font-size:35px;" ng-hide="liked" class="ion ion-thumbsup"></i><br />
                     <i class="text-center">{{con.likes}}</i>
                 </span>
-                <span class="col-33 text-center">
+                <span class="col-25 text-center">
                     <i ng-click="like(con.id,0)" style="font-size:35px; color:blue" class="ion ion-thumbsdown" ng-show="disliked"></i>
                     <i ng-click="like(con.id,0)" style="font-size:35px" class="ion ion-thumbsdown" ng-hide="disliked"></i>
                     <br />
                     <i class="text-center">{{con.dislikes}}</i>
                 </span>
-                <span class="col-33 text-center">
+                <span class="col-25 text-center">
+                    <i ng-click="save(con.id)" style="font-size:35px; " class="ion ion-android-bookmark"></i><br />
+                    <i class="text-center" ng-show="saved">saved</i>
+                    <i class="text-center" ng-hide="saved">Not saved</i>
+
+                </span>
+                <span class="col-25 text-center">
                     <i style="font-size:35px" class="ion ion-eye"></i><br />
                     <i class="text-center">{{con.viewed}}</i>
                 </span>
@@ -54,9 +60,9 @@
         </div>
         <div ng-show="con.contentType == 'audio'">
             <div style="width:100%; height:calc(100vw/2); background-image:url('./img/download.png'); background-size:cover" class="w3-display-container">
-                <audio class="w3-display-bottommiddle" controls>
+                <audio src="{{con.securedSrc | trustUrl}}" class="w3-display-bottommiddle" autoplay controls>
 
-                    <source id="mysrc" type="audio/mp3">
+                 
                 </audio>
             </div>
 
