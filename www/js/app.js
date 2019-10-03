@@ -34,11 +34,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
             window['counter'] = 0;
             var snackbarContainer = document.querySelector('#demo-toast-example');
             
-        $rootScope.showToast =  function  () {
-            'use strict';
-            var data = { message: 'Example Message # ' + ++counter };
-            snackbarContainer.MaterialSnackbar.showSnackbar(data);
-        }
+      
    
         $rootScope.logout = function () {
             localStorage.removeItem("user");
@@ -112,4 +108,9 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
       });
     }
   };
-});
+    })
+.filter("trustUrl", ['$sce', function ($sce) {
+    return function (recordingUrl) {
+        return $sce.trustAsResourceUrl(recordingUrl);
+    };
+}]);;

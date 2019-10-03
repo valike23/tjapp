@@ -45,6 +45,15 @@ angular.module('app.routes', [])
                     }
                 }
             })
+            .state('tabs.allSubscriptions', {
+                url: '/all',
+                views: {
+                    'sub': {
+                        templateUrl: 'templates/allSubscriptions.htm',
+                        controller: 'allSubCtrl'
+                    }
+                }
+            })
 
             .state('tabs.myAccounts', {
                 url: '/accounts',

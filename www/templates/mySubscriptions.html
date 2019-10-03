@@ -3,12 +3,24 @@
     <button class="button button-icon icon ion-android-more-vertical"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
-      <div class="subscription-row row">
-          <div class="col" ng-repeat="sub in subscriptions">
-              <img id="sub-image" ng-src="{{'https://tjkonnect.herokuapp.com' + sub.profilePics }}" />
-          </div>
+      <div class="row">
+          <div class="col-90">
+              <div class="subscription-row row">
 
+                  <div class="col" ng-repeat="sub in subscriptions">
+                      <div class="sub-image" style="background-image:url('{{'https://tjkonnect.herokuapp.com' + sub.profilePics}}')">
+
+                      </div>
+                      <div>{{sub.username}}</div>
+                  </div>
+
+              </div>
+          </div>
+          <div class="col-10">
+              <a class="btn btn-link" ng-click="navAll()" style="margin-top:15px;margin-left:10px; font-size:18px">ALL</a>
+          </div>
       </div>
+      
       <ion-refresher slot="fixed" on-refresh="doRefresh()">
           <ion-refresher-content pulling-icon="arrow-dropdown"
                                  pulling-text="Pull to refresh"
@@ -17,6 +29,99 @@
 
           </ion-refresher-content>
       </ion-refresher>
+      <ion-list class="list">
+          <ion-item ng-click="showContent(subContent)" ng-repeat="subContent in subContents" class="item">
+              <div class="row responsive-sm" ng-if="subContent.contentType == 'video'">
+                  <div class="col-30 w3-display-container" style="margin-right:-30px; min-width:200px;background-image:url('{{subContent.thumbnail}}'); height: calc(100vh/3); background-size:cover">
+                      <div style="background-color:black; color:white" class="w3-display-bottomright">{{subContent.duration}}</div>
+                  </div>
+                  <div class="col-70 padding">
+                      <div class="hidden-sm row">
+                          <div class="col-xs-2 contentImage" style="background-image:url('{{subContent.thumbnail}}')"></div>
+                          <div class="col-xs-10">
+                              <div><strong>{{subContent.name}}</strong></div>
+                              <div>
+                                  {{subContent.uploader}} . {{subContent.viewed + " views"}} . {{subContent.uploaded | date}}
+                              </div>
+                          </div>
+                      </div>
+                      <div style="margin-left:25px" class="hidden-xs">
+                          <div>
+                              <strong>
+                                  {{subContent.name}}
+                              </strong>
+                          </div>
 
+                          <div>
+                              {{subContent.uploader}} . {{subContent.viewed + " views"}} . {{subContent.uploaded | date}}<br />
+                              <br />
+                              <div class="contentImage col-sm-2" style=" background-image:url('{{subContent.thumbnail}}')"></div>
+
+
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+              <div class="row responsive-sm" ng-if="subContent.contentType == 'audio'">
+                  <div class="col-30 w3-display-container" style="margin-right:-30px; min-width:200px;background-image:url('{{subContent.thumbnail}}'); height: calc(100vh/3); background-size:cover">
+                      <div style="background-color:black; color:white" class="w3-display-bottomright">{{subContent.duration}}</div>
+                  </div>
+                  <div class="col-70 padding">
+                      <div class="hidden-sm row">
+                          <div class="col-xs-2 contentImage" style="background-image:url('{{subContent.thumbnail}}')"></div>
+                          <div class="col-xs-10">
+                              <div><strong>{{subContent.name}}</strong></div>
+                              <div>
+                                  {{subContent.uploader}} . {{subContent.viewed + " views"}} . {{subContent.uploaded | date}}
+                              </div>
+                          </div>
+                      </div>
+                      <div style="margin-left:25px" class="hidden-xs">
+                          <div>
+                              <strong>
+                                  {{subContent.name}}
+                              </strong>
+                          </div>
+
+                          <div>
+                              {{subContent.uploader}} . {{subContent.viewed + " views"}} . {{subContent.uploaded | date}}<br />
+                              <br />
+                              <div class="contentImage col-sm-2" style=" background-image:url('{{subContent.thumbnail}}')"></div>
+
+
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+              <div class="" ng-if="subContent.contentType == 'post' || subContent.contentType == 'image'">
+                  <div class="" style="width:100%">
+                      <div class="row">
+                          <div class="col-xs-2 contentImage" style="background-image:url('{{subContent.thumbnail}}')"></div>
+                          <div class="col-xs-12">
+                              <div><strong>{{subContent.name}}</strong></div>
+                              <div>{{subContent.uploaded | date}}</div>
+                          </div>
+                      </div>
+
+                  </div>
+                  <br />
+                  <div class="col-xs-" style="width:100%">
+                      <div class="col-xs-12">
+                          {{subContent.name}}<br />
+                          <br />
+                          <img src="{{subContent.thumbnail}}" style="width:100%; height:calc(100vh/2.9)" />
+
+                      </div>
+                  </div>
+
+              </div>
+          </ion-item>
+      </ion-list>
+      <ion-infinite-scroll ng-if="!noMoreItemsAvailable" immediate-check="false" on-infinite="loadMoreSubContents()"
+                           distance="1%" spinner="bubbles">
+
+      </ion-infinite-scroll>
   </ion-content>
 </ion-view>

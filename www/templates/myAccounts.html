@@ -1,17 +1,10 @@
 <ion-view title="My Accounts" id="page5">
     <ion-nav-buttons side="right" class="has-header">
-        <button id="demo-menu-lower-right"
+        <button id="demo-menu-lower-right" ng-click="openPopover($event)"
                 class="mdl-button  mdl-button--icon">
             <i class="icon ion-android-menu"></i>
         </button>
 
-        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-            for="demo-menu-lower-right">
-            <li class="mdl-menu__item">Some Action</li>
-            <li class="mdl-menu__item">Another Action</li>
-            <li disabled class="mdl-menu__item">Disabled Action</li>
-            <li class="mdl-menu__item" ng-click="logout()">Log Out</li>
-        </ul>
     </ion-nav-buttons>
     <ion-content class="has-header">
         <div ng-show="logged" style="margin-top:calc(-100vh/25); width: calc(105vw/1);margin-left: calc(-100vw/50)">
@@ -37,7 +30,7 @@
             </div>
             <div class="padding">
                 <ion-scroll ng-show="contents">
-                    <ion-refresher on-refresh="doRefresh()" slot="fixed">
+                    <ion-refresher on-refresh="refreshContent()" slot="fixed">
                         <ion-refresher-content pulling-icon="arrow-dropdown"
                                                pulling-text="Pull to refresh"
                                                refreshing-spinner="circles"
@@ -46,14 +39,47 @@
                     </ion-refresher>
                     <div>
 
-                        <div class="panel panel-danger">
-                            <div>No content!!!</div>
-                            <div class="panel-body">
+                        <div class="w3-panel w3-red" ng-show="userContent.length < 1">
+                            <h3 class="text-center">No content!!!</h3>
+                            <div class="text-center">
                                 No Content Available at the moment<br />
                                 Drag down to refresh!
                             </div>
-                            <button ng-click="showToast()" class="mdl-button mdl-js-button mdl-button--raised" type="button">Show Toast</button>
-                           
+                               
+                        </div>
+                        <div class="row w3-margin-bottom" ng-repeat="content in userContent" style="">
+                            <div  class="col-50 w3-margin-right usercon w3-display-container" style=" background-image:url('{{content.thumbnail}}'); ">
+                               <div class="w3-display-bottomright" style="background-color:black; color:white">{{content.duration}}</div>
+                            </div>
+                            <div class="col-50">
+                                <div class="row">
+                                    <div class="col-90">
+                                        <strong>
+                                            {{content.name}}
+                                        </strong>
+                                        <br/>
+                                        <i>
+{{content.uploaded | date: short}} . {{content.viewed + " views" }}
+                                        </i>
+                                    </div>
+                                    <div class="col-10">
+                                        <button id="demo-menu-lower-left"
+                                                class="mdl-button  mdl-button--icon">
+                                            <i class="icon ion-android-more-vertical"></i>
+                                        </button>
+
+                                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                            for="demo-menu-lower-left">
+                                            <li class="mdl-menu__item">Some Action</li>
+                                            <li class="mdl-menu__item">Another Action</li>
+                                            <li disabled class="mdl-menu__item">Disabled Action</li>
+                                            <li class="mdl-menu__item" ng-click="logout()">Log Out</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
                         </div>
                     </div>
                 </ion-scroll>

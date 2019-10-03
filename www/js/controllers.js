@@ -7,7 +7,7 @@ angular.module('app.controllers', [])
             $scope.showContent = function (content) {
 
                 $rootScope.content = content;
-                $rootScope.state = 'tabs.trending';
+                $rootScope.state = 'tabs.home';
                 $state.go('content')
 
             }
@@ -90,10 +90,38 @@ angular.module('app.controllers', [])
 
         }])
 
-    .controller('mySubscriptionsCtrl', ['$scope', '$stateParams', '$ionicLoading', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('mySubscriptionsCtrl', ['$scope', '$stateParams', '$ionicLoading', '$http','$state','$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, $ionicLoading, $http) {
+        function ($scope, $stateParams, $ionicLoading, $http, $state, $rootScope) {
+            $scope.navAll = function () {
+                $state.go('tabs.allSubscriptions');
+            }
+            $scope.showContent = function (content) {
+
+                $rootScope.content = content;
+                $rootScope.state = 'tabs.mySubscriptions';
+                $state.go('content')
+
+            }
+            $scope.loadMoreSubContents = function () {
+                page = page + 1;
+                $http.get("https://tjkonnect.herokuapp.com/api/public/trending/" + page).then(function (res) {
+                    var data = res.data[0];
+                    if (data.length == 0) {
+                        $scope.noMoreItemsAvailable = true;
+                    }
+                    for (var i = 0; i < data.length; i++) {
+                        $scope.subContents.push(data[i]);
+                    }
+
+
+                });
+
+
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            };
+            var page = 1;
             $ionicLoading.show({
                 template: `<ion-spinner name="crescent"></ion-spinner>`
             });
@@ -113,17 +141,17 @@ angular.module('app.controllers', [])
                 $ionicLoading.hide();
                 console.log(res);
                 let data = res.data[0];
-                $scope.subscriptions = data;
+                $rootScope.subscriptions = data;
                 $http({
                     method: 'GET',
                     headers: {
                         'token': localStorage.getItem('token')
                     },
-                    url: 'https://tjkonnect.herokuapp.com/api/private/getsubcontent'
-                }).then(function successCallback(res) {
+                    url: 'https://tjkonnect.herokuapp.com/api/private/getsubcontent/' + page
+                }).then(function successCallback(resd) {
 
-                    console.log(res);
-                    let data = res.data[0];
+                    console.log('sub' , resd);
+                    let data = resd.data[0];
                     $scope.subContents = data;
 
                 }, function errorCallback(err) {
@@ -137,11 +165,73 @@ angular.module('app.controllers', [])
 
         }])
 
-    .controller('myAccountsCtrl', ['$scope', '$stateParams', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-        // You can include any angular dependencies as parameters for this function
-        // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, $ionicPopup) {
-           
+    .controller('myAccountsCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', '$http', '$rootScope','$ionicPopover',
+        function ($scope, $stateParams, $ionicPopup, $ionicLoading, $http, $rootScope, $ionicPopover) {
+            var template = `
+ <ion-popover-view style='height:calc(100vw/5); margin-top:10px; width:20%' class=" dropdown-menu padding">
+<li class='menu_item'><a>ok</a></li>
+<li ng-click='removePop();logout()' class='menu_item'><a>Log Out</a></li>
+        </ion-popover-view>
+`;
+            $scope.removePop = function () {
+                $scope.popover.hide();
+            }
+            $scope.popover = $ionicPopover.fromTemplate(template, {
+                scope: $scope
+            });
+            $scope.openPopover = function ($event) {
+                $scope.popover.show($event);
+            };
+            $scope.refreshContent = function () {
+                $http({
+                    method: 'GET',
+                    headers: {
+                        'token': localStorage.getItem('token')
+                    },
+                    url: 'https://tjkonnect.herokuapp.com/api/private/user_content/1'
+                }).
+                    then(
+                        function (res) {
+                            $scope.$broadcast('scroll.refreshComplete');
+                            $scope.userContent = res.data[0];
+                            console.log($scope.userContent);
+                    },
+                    function (err) {
+                            $ionicLoading.hide();
+                            $scope.userContent = [];
+                            console.log($scope.userContent);
+                            console.log(err);
+                            if (err.data == "you are not logged in") {
+                                $rootScope.logout();
+                                $scope.$broadcast('scroll.refreshComplete');
+                            }
+                        })
+            }
+            $ionicLoading.show({
+                template: `<ion-spinner name="crescent"></ion-spinner>`
+            });
+            $http({
+                method: 'GET',
+                headers: {
+                    'token': localStorage.getItem('token')
+                },
+                url: 'https://tjkonnect.herokuapp.com/api/private/user_content/1'
+            }).
+                then(
+                    function (res) {
+                        $ionicLoading.hide();
+                        $scope.userContent = res.data[0];
+                        console.log($scope.userContent);
+                }, function (err) {
+                    $ionicLoading.hide();
+                    $scope.userContent = [];
+                    console.log($scope.userContent);
+                    console.log(err);
+                    if (err.data == "you are not logged in") {
+                        $ionicLoading.hide();
+                        $rootScope.logout();
+                    }
+                    })
             $scope.contents = true;
             $scope.content = false;
             $scope.competition = false;
@@ -167,15 +257,7 @@ angular.module('app.controllers', [])
                 }
 
             }
-            
-            $scope.details = function () {
-
-            }
-       
-            $scope.details = function ($event) {
-                $scope.popover.show($event);
-            };
-
+          
             console.log(navigator);
             $scope.upload = function () {
                 navigator.camera.getPicture(function () {
@@ -384,6 +466,13 @@ angular.module('app.controllers', [])
             alert("working");
 
 
+        }]).controller('allSubCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+        // You can include any angular dependencies as parameters for this function
+        // TIP: Access Route Parameters for your page via $stateParams.parameterName
+        function ($scope, $stateParams) {
+            alert("working");
+
+
         }])
     .controller('contentCtrl', ['$scope', '$stateParams', '$ionicLoading', '$http', '$rootScope','$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
@@ -423,7 +512,8 @@ angular.module('app.controllers', [])
                             } catch (e) {
                                 console.log(e)
                             }
-                        }, function (err) {
+                    }, function (err) {
+                        $ionicLoading.hide();
                         })
                 console.log($scope.content);
                 $http.get('https://tjkonnect.herokuapp.com/api/public/comments/' + $rootScope.content.id).then(function (res) {
@@ -434,9 +524,7 @@ angular.module('app.controllers', [])
                     $ionicLoading.hide();
                     console.log(res.data[0]);
                     var data = res.data[0];
-                    document.getElementById('mysrc').src = data[0].securedSrc;
-                    console.log(data[0].securedSrc);
-                    console.log(document.getElementById('mysrc'));
+                   
                     $rootScope.con = res.data[0][0];
                     $http({
                         method: 'GET',
@@ -453,6 +541,7 @@ angular.module('app.controllers', [])
 
 
                         }, function (err) {
+                            $ionicLoading.hide();
                         })
                     $http.get('https://tjkonnect.herokuapp.com/api/public/similar/' + $rootScope.content.name).then(function (res) {
                         $scope.similars = res.data[0];
@@ -820,9 +909,7 @@ angular.module('app.controllers', [])
                 $ionicLoading.hide();
                 console.log(res.data[0]);
                 var data = res.data[0];
-                document.getElementById('mysrc').src = data[0].securedSrc;
-                console.log(data[0].securedSrc);
-                console.log(document.getElementById('mysrc'));
+               
                 $rootScope.con = res.data[0][0];
                 $http({
                     method: 'GET',

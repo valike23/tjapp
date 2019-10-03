@@ -4,9 +4,9 @@
     </ion-nav-buttons>
     <ion-content class="has-header padding">
         <div id="video" ng-show="con.contentType == 'video'">
-            <video style="width:100%; background-image:url('./img/video.jpg'); background-size:cover" controls>
+            <video src="{{con.src | trustUrl}}"  style="width:100%; background-image:url('./img/video.jpg'); background-size:cover" controls>
 
-                <source id="mysrc" type="video/mp4">
+                
             </video>
             <hr />
             <div class="row padding-left">
