@@ -178,6 +178,7 @@ angular.module('app.controllers', [])
                   //  $scope.picture = imageData;;
                 }, function (err) {
                     console.log(err);
+                    alert(err);
                 });
             }
             var template = `
