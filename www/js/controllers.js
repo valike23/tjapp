@@ -168,6 +168,7 @@ angular.module('app.controllers', [])
     .controller('myAccountsCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', '$http', '$rootScope','$ionicPopover','Camera',
         function ($scope, $stateParams, $ionicPopup, $ionicLoading, $http, $rootScope, $ionicPopover, Camera) {
             $scope.upload = function () {
+                alert("entered");
                 let opt = {
                     sourceType: 0,
                     destinationType: 1,
