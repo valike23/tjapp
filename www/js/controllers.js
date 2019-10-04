@@ -169,11 +169,11 @@ angular.module('app.controllers', [])
         function ($scope, $stateParams, $ionicPopup, $ionicLoading, $http, $rootScope, $ionicPopover, Camera) {
             $scope.upload = function () {
                 let opt = {
-                    sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
-                    destinationType: navigator.camera.DestinationType.FILE_URI,
-                    MediaType: Camera.MediaType.ALLMEDIA
+                    sourceType: 0,
+                    destinationType: 1,
+                    MediaType: 2
                 };
-                Camera.getPicture(options).then(function (imageData) {
+                Camera.getPicture(opt).then(function (imageData) {
                   //  $scope.picture = imageData;;
                 }, function (err) {
                     console.log(err);
