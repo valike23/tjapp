@@ -1,2 +1,1 @@
-phonegap local plugin add cordova-plugin-x-toast
-pause
+bower install ngCordova

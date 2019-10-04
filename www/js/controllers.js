@@ -165,23 +165,19 @@ angular.module('app.controllers', [])
 
         }])
 
-    .controller('myAccountsCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', '$http', '$rootScope','$ionicPopover',
-        function ($scope, $stateParams, $ionicPopup, $ionicLoading, $http, $rootScope, $ionicPopover) {
+    .controller('myAccountsCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', '$http', '$rootScope','$ionicPopover','Camera',
+        function ($scope, $stateParams, $ionicPopup, $ionicLoading, $http, $rootScope, $ionicPopover, Camera) {
             $scope.upload = function () {
-                alert("entered");
-                navigator.camera.getPicture(function (imageData) {
-                    console.log("success");
-                    alert("success")
-                }, function () {
-                    alert("working")
-                    }, {
-                         
-                        quality: 50,
-                        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
-                        destinationType: navigator.camera.DestinationType.FILE_URI,
-                    
-                        MediaType: Camera.MediaType.ALLMEDIA
-                    });
+                let opt = {
+                    sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+                    destinationType: navigator.camera.DestinationType.FILE_URI,
+                    MediaType: Camera.MediaType.ALLMEDIA
+                };
+                Camera.getPicture(options).then(function (imageData) {
+                  //  $scope.picture = imageData;;
+                }, function (err) {
+                    console.log(err);
+                });
             }
             var template = `
  <ion-popover-view style='height:calc(100vw/5); margin-top:10px; width:20%' class=" dropdown-menu padding">

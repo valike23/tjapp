@@ -1,4 +1,4 @@
-<ion-view title="My Accounts" id="page5">
+<ion-view title="My Accounts">
     <ion-nav-buttons side="right" class="has-header">
         <button id="demo-menu-lower-right" ng-click="openPopover($event)"
                 class="mdl-button  mdl-button--icon">
@@ -45,11 +45,11 @@
                                 No Content Available at the moment<br />
                                 Drag down to refresh!
                             </div>
-                               
+
                         </div>
                         <div class="row w3-margin-bottom" ng-repeat="content in userContent" style="">
-                            <div  class="col-50 w3-margin-right usercon w3-display-container" style=" background-image:url('{{content.thumbnail}}'); ">
-                               <div class="w3-display-bottomright" style="background-color:black; color:white">{{content.duration}}</div>
+                            <div class="col-50 w3-margin-right usercon w3-display-container" style=" background-image:url('{{content.thumbnail}}'); ">
+                                <div class="w3-display-bottomright" style="background-color:black; color:white">{{content.duration}}</div>
                             </div>
                             <div class="col-50">
                                 <div class="row">
@@ -57,9 +57,9 @@
                                         <strong>
                                             {{content.name}}
                                         </strong>
-                                        <br/>
+                                        <br />
                                         <i>
-{{content.uploaded | date: short}} . {{content.viewed + " views" }}
+                                            {{content.uploaded | date: short}} . {{content.viewed + " views" }}
                                         </i>
                                     </div>
                                     <div class="col-10">
@@ -77,8 +77,8 @@
                                         </ul>
                                     </div>
                                 </div>
-                                
-                                
+
+
                             </div>
                         </div>
                     </div>
@@ -114,6 +114,6 @@
         </div>
     </ion-content>
     <script>
-       
+
     </script>
 </ion-view>

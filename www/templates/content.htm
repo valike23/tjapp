@@ -4,7 +4,7 @@
     </ion-nav-buttons>
     <ion-content class="has-header padding">
         <div id="video" ng-show="con.contentType == 'video'">
-            <video autoplay src="{{con.securedSrc | trustUrl}}"  style="width:100%; background-image:url('./img/video.jpg'); background-size:cover" controls>
+            <video  src="{{con.securedSrc | trustUrl}}"  style="width:100%; background-image:url('./img/video.jpg'); background-size:cover" controls>
 
                 
             </video>
@@ -60,7 +60,7 @@
         </div>
         <div ng-show="con.contentType == 'audio'">
             <div style="width:100%; height:calc(100vw/2); background-image:url('./img/download.png'); background-size:cover" class="w3-display-container">
-                <audio src="{{con.securedSrc | trustUrl}}" class="w3-display-bottommiddle" autoplay controls>
+                <audio src="{{con.securedSrc | trustUrl}}" class="w3-display-bottommiddle"  controls>
 
                  
                 </audio>
