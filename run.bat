@@ -1,1 +1,1 @@
-ionic serve
+ionic serve --lab
