@@ -1,0 +1,108 @@
+<ion-view title="trending" id="page3">
+    <ion-nav-buttons side="right" class="has-header">
+        <button class="button button-icon icon ion-android-more-vertical"></button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <ion-refresher on-refresh="doRefresh()" slot="fixed">
+            <ion-refresher-content pulling-icon="arrow-dropdown"
+                                   pulling-text="Pull to refresh"
+                                   refreshing-spinner="circles"
+                                   refreshing-text="Refreshing...">
+            </ion-refresher-content>
+        </ion-refresher>
+        <ion-list class="list">
+            <ion-item ng-click="showContent(trend)" ng-repeat="trend in trends" class="item">
+                <div class="row responsive-sm" ng-if="trend.contentType == 'video'">
+                    <div class="col-30 w3-display-container" style="margin-right:-30px; min-width:200px;background-image:url('{{trend.thumbnail}}'); height: calc(100vh/3); background-size:cover">
+                        <div style="background-color:black; color:white" class="w3-display-bottomright">{{trend.duration}}</div>
+                    </div>
+                    <div class="col-70 padding">
+                        <div class="hidden-sm row">
+                            <div class="col-xs-2 contentImage" style="background-image:url('{{trend.thumbnail}}')"></div>
+                            <div class="col-xs-10">
+                                <div><strong>{{trend.name}}</strong></div>
+                                <div>
+                                    {{trend.uploader}} . {{trend.viewed + " views"}} . {{trend.uploaded | date}}
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-left:25px" class="hidden-xs">
+                            <div>
+                                <strong>
+                                    {{trend.name}}
+                                </strong>
+                            </div>
+
+                            <div>
+                                {{trend.uploader}} . {{trend.viewed + " views"}} . {{trend.uploaded | date}}<br />
+                                <br />
+                                <div class="contentImage col-sm-2" style=" background-image:url('{{trend.thumbnail}}')"></div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row responsive-sm" ng-if="trend.contentType == 'audio'">
+                    <div class="col-30 w3-display-container" style="margin-right:-30px; min-width:200px;background-image:url('{{trend.thumbnail}}'); height: calc(100vh/3); background-size:cover">
+                        <div style="background-color:black; color:white" class="w3-display-bottomright">{{trend.duration}}</div>
+                    </div>
+                    <div class="col-70 padding">
+                        <div class="hidden-sm row">
+                            <div class="col-xs-2 contentImage" style="background-image:url('{{trend.thumbnail}}')"></div>
+                            <div class="col-xs-10">
+                                <div><strong>{{trend.name}}</strong></div>
+                                <div>
+                                    {{trend.uploader}} . {{trend.viewed + " views"}} . {{trend.uploaded | date}}
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-left:25px" class="hidden-xs">
+                            <div>
+                                <strong>
+                                    {{trend.name}}
+                                </strong>
+                            </div>
+
+                            <div>
+                                {{trend.uploader}} . {{trend.viewed + " views"}} . {{trend.uploaded | date}}<br />
+                                <br />
+                                <div class="contentImage col-sm-2" style=" background-image:url('{{trend.thumbnail}}')"></div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="" ng-if="trend.contentType == 'post' || trend.contentType == 'image'">
+                    <div class="" style="width:100%">
+                        <div class="row">
+                            <div class="col-xs-2 contentImage" style="background-image:url('{{trend.thumbnail}}')"></div>
+                            <div class="col-xs-12">
+                                <div><strong>{{trend.name}}</strong></div>
+                                <div>{{trend.uploaded | date}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="col-xs-" style="width:100%">
+                        <div class="col-xs-12">
+                            {{trend.name}}<br />
+                            <br />
+                            <img src="{{trend.thumbnail}}" style="width:100%; height:calc(100vh/2.9)" />
+
+                        </div>
+                    </div>
+
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-infinite-scroll ng-if="!noMoreItemsAvailable" immediate-check="false" on-infinite="loadMore()"
+                             distance="1%" spinner="bubbles">
+
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>

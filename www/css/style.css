@@ -1,0 +1,80 @@
+#slideContainer{
+    margin-left: 1px;
+    }
+#slideParent {
+    margin-left: -2px;
+    margin-top: -10px;
+   }
+.subscription-row {
+    overflow: auto;
+    width: 100%;
+    margin-left: -2px;
+    margin-top: -10px;
+}
+.sub-image {
+    height: calc(100vw/8);
+    width: calc(100vw/8);
+    margin-right:4px;
+    background-size: cover;
+    border-radius:50%
+}
+#profilePics{
+    width: calc(100vh/10);
+    height: calc(100vh/10);
+    border-radius: 50%
+}
+#videoBG{
+    background-size:cover;
+    background-color:green;
+    height: 70%
+}
+.contentImage {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background-size: cover
+}
+.commentImage {
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    background-size: cover
+}
+.mactive{
+    border-bottom: 2px solid red;
+}
+.tab{
+font-weight:400;
+font-size:17px;
+text-align: center
+}
+.usercon{
+    background-size:cover;
+    height: calc(100vw/4)
+}
+.menu_item {
+    display: block;
+    border: none;
+    color: rgba(0,0,0,.87);
+    background-color: transparent;
+    text-align: left;
+    margin: 0;
+    padding: 0 5px;
+    outline-color: #bdbdbd;
+    position: relative;
+    overflow: hidden;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-decoration: none;
+    cursor: pointer;
+    font-size:20px;
+    height: 50%;
+    line-height: 48px;
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity .2s cubic-bezier(.4,0,.2,1);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
