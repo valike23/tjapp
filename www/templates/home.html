@@ -4,7 +4,7 @@
   </ion-nav-buttons>
   <ion-content style="padding-top:5px" class="has-header">
     <ion-slides ng-click="gotoCompetition(competition)"  disable-side-menu-drag="false" options="{'loop': true}" slider="slider1" delegate-handle="slider1" id="home-slider1" style="width:100%;height:50%;">
-        <ion-slide-page ng-repeat="competition in competitions" id="home-slide24" style="z-index:-1;background:url( {{'https://tjkonnect.herokuapp.com/' + competition.banner}}) no-repeat center;background-size:cover;background-color:#582ABB;" class="padding">
+        <ion-slide-page ng-repeat="competition in competitions" id="home-slide24" style="z-index:-1;background:url( {{competition.banner}}) no-repeat center;background-size:cover;background-color:#582ABB;" class="padding">
            
         </ion-slide-page>
      

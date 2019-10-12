@@ -1,6 +1,60 @@
-<ion-view title="My Library" id="page6">
-  <ion-nav-buttons side="right" class="has-header">
+<ion-view title="Competitions" >
+  <!--<ion-nav-buttons side="right" class="has-header">
     <button class="button button-icon icon ion-android-more-vertical"></button>
-  </ion-nav-buttons>
-  <ion-content padding="true" class="has-header"></ion-content>
+  </ion-nav-buttons>-->
+  <ion-content padding="true" class="has-header">
+  
+
+    <ion-refresher ng-hide="loader" slot="fixed" on-refresh="doRefresh()">
+      <ion-refresher-content pulling-icon="arrow-dropdown"
+                             pulling-text="Pull to refresh"
+                             refreshing-spinner="circles"
+                             refreshing-text="Refreshing...">
+
+      </ion-refresher-content>
+    </ion-refresher>
+    
+    <div ng-hide="loader">
+      <ion-list class="list" ng-show="conp">
+        <ion-item class="item-divider-android"><strong>Active Competitions</strong></ion-item>
+        <ion-item ng-click="nav(competition)" ng-repeat="competition in competitions" class="item">
+          <div class="row responsive-sm">
+            <div class="col-30 w3-display-container" style="margin-right:-30px; min-width:200px;background-image:url('{{competition.banner}}'); height: calc(100vh/3); background-size:cover">
+              <div style="background-color:black; color:white" class="w3-display-bottomright">{{active}}</div>
+            </div>
+            <div class="col-70 padding">
+              <div class="hidden-sm row">
+                <div class="col-xs-2 contentImage" style="background-image:url('{{competition.profilePics}}')"></div>
+                <div class="col-xs-10">
+                  <div><strong>{{competition.competition_name}}</strong></div>
+                  <div>
+                    {{competition.username}} . {{2 + " users"}} . Ends on {{competition.endDate | date}}
+                  </div>
+                </div>
+              </div>
+              <div style="margin-left:25px" class="hidden-xs">
+                <div>
+                  <strong>
+                    {{competition.competition_name}}
+                  </strong>
+                </div>
+
+                <div>
+                  {{competition.username}} . {{2 + " users"}} . Ends on {{competition.endDate | date}}<br />
+                  <br />
+                  <div class="contentImage col-sm-2" style=" background-image:url('{{subContent.profilePics}}')"></div>
+
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </ion-item>
+      </ion-list>
+    </div>
+  
+   
+  </ion-content>
 </ion-view>

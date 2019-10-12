@@ -73,7 +73,15 @@ angular.module('app.routes', [])
                         controller: 'myLibraryCtrl'
                     }
                 }
-            })
+          }).state('tabs.competition', {
+            url: '/competition',
+            views: {
+              'lib': {
+                templateUrl: 'templates/competition.htm',
+                controller: 'comptCtrl'
+              }
+            }
+          })
 
             .state('tabs', {
                 url: '/tabs',

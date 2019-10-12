@@ -1,0 +1,154 @@
+<ion-view title="special" >
+  <!--<ion-nav-buttons side="right" class="has-header">
+    <button class="button button-icon icon ion-android-more-vertical"></button>
+  </ion-nav-buttons>-->
+  <ion-content padding="true" class="has-header">
+    <div   style="margin-top:calc(-100vh/25); width: calc(105vw/1);margin-left: calc(-100vw/50);">
+      <div style="background-image:url('{{competition.banner}}'); background-size:cover "  class=" card padding">
+        <div class="row">
+          <div class="col col-75">
+            
+            <img id="profilePics" src="{{competition.profilePics}}" /><span>{{competition.competition_name}}</span>
+          </div>
+        </div>
+
+        <div class="row " style="margin-bottom:-14px; ">
+          <div id="Acontents" class="col-50 mactive tab" ng-click="nav('Acontents')">
+            contents
+          </div>
+          <!--<div id="Acompetition" class="col-40 tab" ng-click="nav('Acompetition')">
+            competitions
+        </div>-->
+          <div id="Acontent" style="" class="col-50 tab" ng-click="nav('Acontent')">
+            community
+          </div>
+        </div>
+
+      </div>
+      <div class="padding">
+        <ion-scroll ng-show="contents">
+          <ion-refresher on-refresh="refreshContent()" slot="fixed">
+            <ion-refresher-content pulling-icon="arrow-dropdown"
+                                   pulling-text="Pull to refresh"
+                                   refreshing-spinner="circles"
+                                   refreshing-text="Refreshing...">
+            </ion-refresher-content>
+          </ion-refresher>
+          <div>
+
+            <div class="w3-panel w3-red" ng-show="userContent.length < 1">
+              <h3 class="text-center">No content!!!</h3>
+              <div class="text-center">
+                No Content Available at the moment<br />
+                Drag down to refresh!
+              </div>
+
+            </div>
+            <div class="row w3-margin-bottom" ng-click="showContent(content)" ng-repeat="content in userContent" style="">
+              <div class="col-50 w3-margin-right usercon w3-display-container" style=" background-image:url('{{content.thumbnail}}'); ">
+                <div class="w3-display-bottomright" style="background-color:black; color:white">{{content.duration}}</div>
+              </div>
+              <div class="col-50">
+                <div class="row">
+                  <div class="col-90">
+                    <strong>
+                      {{content.name}}
+                    </strong>
+                    <br />
+                    <i>
+                      {{content.uploaded | date: short}} . {{content.viewed + " views" }}
+                    </i>
+                  </div>
+                  <div class="col-10">
+                    <button id="demo-menu-lower-left"
+                            class="mdl-button  mdl-button--icon">
+                      <i class="icon ion-android-more-vertical"></i>
+                    </button>
+
+                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                        for="demo-menu-lower-left">
+                      <li class="mdl-menu__item">Some Action</li>
+                      <li class="mdl-menu__item">Another Action</li>
+                      <li disabled class="mdl-menu__item">Disabled Action</li>
+                      <li class="mdl-menu__item" ng-click="logout()">Log Out</li>
+                    </ul>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </ion-scroll>
+        <!--<div ng-show="competition">
+          <div>
+              competition
+          </div>
+      </div>-->
+        <div ng-show="content">
+          <div ng-show="contentsLoader" style="margin-top: calc(100vh/6); margin-left: calc(100vw/3)">
+            <ion-spinner name="crescent"></ion-spinner>
+          </div>
+          <div ng-hide="contentsLoader">
+            <ion-scroll ng-show="content">
+              <ion-refresher on-refresh="refreshContents()" slot="fixed">
+                <ion-refresher-content pulling-icon="arrow-dropdown"
+                                       pulling-text="Pull to refresh"
+                                       refreshing-spinner="circles"
+                                       refreshing-text="Refreshing...">
+                </ion-refresher-content>
+              </ion-refresher>
+              <div>
+
+                <div class="w3-panel w3-red" ng-show="saves.length < 1">
+                  <h3 class="text-center">Bookmark Empty</h3>
+                  <div class="text-center">
+                    You are yet to bookmark any content at the moment<br />
+                    Drag down to refresh!
+                  </div>
+
+                </div>
+                <div class="row w3-margin-bottom" ng-repeat="content in saves" style="" ng-click="showContent(content)">
+                  <div class="col-50 w3-margin-right usercon w3-display-container" style=" background-image:url('{{content.thumbnail}}'); ">
+                    <div class="w3-display-bottomright" style="background-color:black; color:white">{{content.duration}}</div>
+                  </div>
+                  <div class="col-50">
+                    <div class="row">
+                      <div class="col-90">
+                        <strong>
+                          {{content.name}}
+                        </strong>
+                        <br />
+                        <i>
+                          {{content.uploaded | date: short}} . {{content.viewed + " views" }}
+                        </i>
+                      </div>
+                      <div class="col-10">
+                        <button id="demo-menu-lower-left"
+                                class="mdl-button  mdl-button--icon">
+                          <i class="icon ion-android-more-vertical"></i>
+                        </button>
+
+                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                            for="demo-menu-lower-left">
+                          <li class="mdl-menu__item">Some Action</li>
+                          <li class="mdl-menu__item">Another Action</li>
+                          <li disabled class="mdl-menu__item">Disabled Action</li>
+                          <li class="mdl-menu__item" ng-click="logout()">Log Out</li>
+                        </ul>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </ion-scroll>
+          </div>
+        </div>
+      </div>
+
+    </div>
+      </div>
+  </ion-content>
+  </ion-view>

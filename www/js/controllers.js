@@ -5,7 +5,7 @@ angular.module('app.controllers', [])
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $stateParams, $http, $ionicLoading, $rootScope,$state,$cordovaToast) {
             $scope.showContent = function (content) {
-
+             
                 $rootScope.content = content;
                 $rootScope.state = 'tabs.home';
                 $state.go('content')
@@ -15,8 +15,8 @@ angular.module('app.controllers', [])
                 template: `<ion-spinner name="crescent"></ion-spinner>`
             });
             $http.get("https://tjkonnect.herokuapp.com/api/public/competition").then(function (res) {
-                console.log(res.data[0]);
-                $scope.competitions = res.data[0];
+              console.log(res.data[0]);
+              $scope.competitions = res.data[0];
                 $ionicLoading.hide();
             }, function(){
                 $ionicLoading.hide();
@@ -165,18 +165,24 @@ angular.module('app.controllers', [])
 
         }])
 
-    .controller('myAccountsCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', '$http', '$rootScope', '$ionicPopover','$cordovaCamera',
-        function ($scope, $stateParams, $ionicPopup, $ionicLoading, $http, $rootScope, $ionicPopover, $cordovaCamera) {
-            $scope.upload = function () {
-                alert("entered");
-               
-            }
+    .controller('myAccountsCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', '$http', '$rootScope', '$ionicPopover','$state',
+        function ($scope, $stateParams, $ionicPopup, $ionicLoading, $http, $rootScope, $ionicPopover, $state) {
+          
             var template = `
  <ion-popover-view style='height:calc(100vw/5); margin-top:10px; width:20%' class=" dropdown-menu padding">
 <li class='menu_item' ng-click='upload()'><a>ok</a></li>
 <li ng-click='removePop();logout()' class='menu_item'><a>Log Out</a></li>
         </ion-popover-view>
 `;
+          $scope.showContent = function (content) {
+
+            $rootScope.content = content;
+            $rootScope.state = 'tabs.myAccounts';
+            $state.go('content')
+
+          }
+          let Acontent = 0;
+          $scope.contentsLoader = false;
             $scope.removePop = function () {
                 $scope.popover.hide();
             }
@@ -239,17 +245,51 @@ angular.module('app.controllers', [])
             $scope.contents = true;
             $scope.content = false;
             $scope.competition = false;
-            $scope.nav = function (ele) {
+          $scope.nav = function (ele) {
+            console.log(ele);
                 document.getElementById("Acontent").classList.remove("mactive");
                 document.getElementById("Acontents").classList.remove("mactive");
-                document.getElementById("Acompetition").classList.remove("mactive");
+                //document.getElementById("Acompetition").classList.remove("mactive");
                 document.getElementById(ele).classList.add("mactive");
-                if (ele == 'Acontent') {
+            if (ele == 'Acontent') {
+              console.log(ele);
+             
+              if (Acontent == 0) {
+                $scope.contentsLoader = true;
+                $http({
+                  method: 'GET',
+                  headers: {
+                    'token': localStorage.getItem('token')
+                  },
+                  url: 'https://tjkonnect.herokuapp.com/api/private/saved/1'
+                }).
+                  then(
+                    function (res) {
+                      Acontent = Acontent + 1;
+                      $scope.contentsLoader = false;
+                      $scope.saves = res.data[0];
+                      console.log($scope.saves);
+                    }, function (err) {
+                      $scope.contentsLoader = false;
+                      $scope.saves = [];
+                      console.log($scope.saves);
+                      console.log(err);
+                      if (err.data == "you are not logged in") {
+                        $ionicLoading.hide();
+                        $rootScope.logout();
+                      }
+                    })
+
+              }
+              
                     $scope.contents = false;
                     $scope.content = true;
                     $scope.competition = false;
                 }
-                if (ele == 'Acontents') {
+              if (ele == 'Acontents') {
+                
+
+                
                     $scope.contents = true;
                     $scope.content = false;
                     $scope.competition = false;
@@ -266,11 +306,40 @@ angular.module('app.controllers', [])
           
         }])
 
-    .controller('myLibraryCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('myLibraryCtrl', ['$scope', '$stateParams','$http','$state','$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams) {
+      function ($scope, $stateParams, $http, $state, $rootScope) {
+        $scope.nav = function (comp) {
+          $rootScope.competition = comp;
+          $state.go('tabs.competition');
+        }
+        $scope.doRefresh = function () {
+          $http.get('https://tjkonnect.herokuapp.com/api/public/competition').then(function (res) {
+            $scope.loader = false;
+            $scope.competitions = res.data[0];
+            console.log($scope.competitions)
+            if ($scope.competitions.length > 0) $scope.conp = true;
 
+          }, function (err) {
+            console.log(err);
+            $scope.competitions = [];
+          })
+
+        }
+        $scope.loader = true;
+        $scope.conp = false;
+        $http.get('https://tjkonnect.herokuapp.com/api/public/competition').then(function (res) {
+          $scope.loader = false;
+          $scope.competitions = res.data[0];
+          console.log($scope.competitions)
+          if ($scope.competitions.length > 0) $scope.conp = true;
+
+        }, function (err) {
+          console.log(err);
+          $scope.competitions = [];
+          })
+       
 
         }])
 
@@ -462,11 +531,53 @@ angular.module('app.controllers', [])
             alert("working");
 
 
-        }]).controller('allSubCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    }])
+  .controller('comptCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+      // You can include any angular dependencies as parameters for this function
+      // TIP: Access Route Parameters for your page via $stateParams.parameterName
+      function ($scope, $stateParams) {
+        $scope.nav = function (ele) {
+          console.log(ele);
+          document.getElementById("Acontent").classList.remove("mactive");
+          document.getElementById("Acontents").classList.remove("mactive");
+          document.getElementById(ele).classList.add("mactive");
+          if (ele == 'Acontent') {
+            console.log(ele);
+
+            if (Acontent == 0) {
+              $scope.contentsLoader = true;
+            
+
+            }
+
+            $scope.contents = false;
+            $scope.content = true;
+            $scope.competition = false;
+          }
+          if (ele == 'Acontents') {
+
+
+
+            $scope.contents = true;
+            $scope.content = false;
+            $scope.competition = false;
+          }
+          if (ele == 'Acompetition') {
+            $scope.contents = false;
+            $scope.content = false;
+            $scope.competition = true;
+          }
+
+        };
+
+
+
+      }])
+  .controller('allSubCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $stateParams) {
-            alert("working");
+            alert("working")
 
 
         }])
@@ -977,4 +1088,3 @@ angular.module('app.controllers', [])
 
 
         }])
-   
