@@ -1,8 +1,15 @@
-﻿<ion-view title="All subscriptions" >
+<ion-view title="All subscriptions" >
     <ion-nav-buttons side="right" class="has-header">
         <button class="button button-icon icon ion-android-more-vertical"></button>
     </ion-nav-buttons>
     <ion-content padding="true" class="has-header">
-
+      <div class="list">
+        <div ng-click="nav(sub)" ng-repeat="sub in subscriptions" class="item item-avatar">
+          <img src="{{sub.profilePics}}">
+          <h3>{{sub.username}}</h3>
+        </div>
+        
+       
+      </div>
 </ion-content>
 </ion-view>

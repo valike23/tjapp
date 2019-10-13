@@ -1,42 +1,36 @@
-<ion-view title="special" >
+<ion-view title="{{competition.competition_name}}" >
   <!--<ion-nav-buttons side="right" class="has-header">
     <button class="button button-icon icon ion-android-more-vertical"></button>
   </ion-nav-buttons>-->
   <ion-content padding="true" class="has-header">
-    <div   style="margin-top:calc(-100vh/25); width: calc(105vw/1);margin-left: calc(-100vw/50);">
-      <div style="background-image:url('{{competition.banner}}'); background-size:cover "  class=" card padding">
-        <div class="row">
-          <div class="col col-75">
-            
-            <img id="profilePics" src="{{competition.profilePics}}" /><span>{{competition.competition_name}}</span>
-          </div>
-        </div>
+    <div style="margin-top:calc(-100vh/25); width: calc(105vw/1);margin-left: calc(-100vw/50);">
+      <div id="compt" class=" card padding w3-display-container" style="background-image:url('{{competition.banner}}'); background-size:cover; ">
 
-        <div class="row " style="margin-bottom:-14px; ">
-          <div id="Acontents" class="col-50 mactive tab" ng-click="nav('Acontents')">
-            contents
-          </div>
-          <!--<div id="Acompetition" class="col-40 tab" ng-click="nav('Acompetition')">
-            competitions
-        </div>-->
-          <div id="Acontent" style="" class="col-50 tab" ng-click="nav('Acontent')">
-            community
-          </div>
-        </div>
 
+        <img class="w3-display-bottomleft" id="profilePics" src="{{competition.profilePics}}" />
+      </div>
+      <div class="row " style="margin-bottom:-14px; ">
+        <div id="Acontents" class="col-50 mactive tab" ng-click="nav('Acontents')">
+          contents
+        </div>
+            <div id="Acontent" style="" class="col-50 tab" ng-click="nav('Acontent')">
+          community
+        </div>
       </div>
       <div class="padding">
-        <ion-scroll ng-show="contents">
-          <ion-refresher on-refresh="refreshContent()" slot="fixed">
-            <ion-refresher-content pulling-icon="arrow-dropdown"
-                                   pulling-text="Pull to refresh"
-                                   refreshing-spinner="circles"
-                                   refreshing-text="Refreshing...">
-            </ion-refresher-content>
-          </ion-refresher>
-          <div>
-
-            <div class="w3-panel w3-red" ng-show="userContent.length < 1">
+        <div ng-show="contents" >
+          <ion-scroll >
+            <ion-refresher on-refresh="refreshContent()" slot="fixed">
+              <ion-refresher-content pulling-icon="arrow-dropdown"
+                                     pulling-text="Pull to refresh"
+                                     refreshing-spinner="circles"
+                                     refreshing-text="Refreshing...">
+              </ion-refresher-content>
+            </ion-refresher>
+            <div ng-show="loader" style="margin-top:calc(100vh/6)">
+              <ion-spinner style=" margin-left:calc(100vw/2.3)" name="crescent"></ion-spinner>
+            </div>
+            <div class="w3-panel w3-red" ng-show="contents.length < 1">
               <h3 class="text-center">No content!!!</h3>
               <div class="text-center">
                 No Content Available at the moment<br />
@@ -44,7 +38,7 @@
               </div>
 
             </div>
-            <div class="row w3-margin-bottom" ng-click="showContent(content)" ng-repeat="content in userContent" style="">
+            <div class="row w3-margin-bottom" ng-click="showContent(content)" ng-repeat="content in scontents" style="">
               <div class="col-50 w3-margin-right usercon w3-display-container" style=" background-image:url('{{content.thumbnail}}'); ">
                 <div class="w3-display-bottomright" style="background-color:black; color:white">{{content.duration}}</div>
               </div>
@@ -78,13 +72,12 @@
 
               </div>
             </div>
-          </div>
-        </ion-scroll>
-        <!--<div ng-show="competition">
-          <div>
-              competition
-          </div>
-      </div>-->
+
+          </ion-scroll>
+        </div>
+
+        
+       
         <div ng-show="content">
           <div ng-show="contentsLoader" style="margin-top: calc(100vh/6); margin-left: calc(100vw/3)">
             <ion-spinner name="crescent"></ion-spinner>

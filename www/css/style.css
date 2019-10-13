@@ -78,3 +78,7 @@ text-align: center
     -ms-user-select: none;
     user-select: none
 }
+#compt{
+  height: caLC(100vh/3)
+}
+

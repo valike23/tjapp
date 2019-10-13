@@ -232,7 +232,8 @@ angular.module('app.controllers', [])
                         $ionicLoading.hide();
                         $scope.userContent = res.data[0];
                         console.log($scope.userContent);
-                }, function (err) {
+              },
+              function (err) {
                     $ionicLoading.hide();
                     $scope.userContent = [];
                     console.log($scope.userContent);
@@ -480,7 +481,6 @@ angular.module('app.controllers', [])
             })
 
         }])
-
     .controller('loginCtrl', ['$scope', '$stateParams', '$http', '$state', '$ionicLoading', '$rootScope', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
@@ -524,61 +524,135 @@ angular.module('app.controllers', [])
 
         }])
 
-    .controller('subscriberCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+  .controller('subscriberCtrl', ['$scope', '$stateParams', '$state', '$rootScope','$http',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams) {
-            alert("working");
+    function ($scope, $stateParams, $state, $rootScope, $http) {
+      $scope.svideo = true;
+      $scope.smusic = false;
+      $scope.spost = false;
+      $scope.mov = function (ele) {
+        console.log(ele);
+        document.getElementById("video").classList.remove("mactive");
+        document.getElementById("music").classList.remove("mactive");
+        document.getElementById("post").classList.remove("mactive");
+        document.getElementById(ele).classList.add("mactive");
+        if (ele == 'video') {
+          $scope.svideo = true;
+          $scope.smusic = false;
+          $scope.spost = false;
+        }
+        if (ele == 'Acontents') {
+
+          console.log($scope.contents);
+
+          $scope.contents = true;
+          $scope.content = false;
+
+        }
+
+
+      };
+        console.log($rootScope.mySub);
+       
+        $scope.isSubbed = function () {
+          $http({
+            method: 'GET',
+            headers: {
+              'token': localStorage.getItem('token')
+            },
+            url: 'https://tjkonnect.herokuapp.com/api/private/issubscribed/' + $rootScope.mySub.id
+          }).
+            then(
+              function (res) {
+                console.log(res.data[0]);
+                res = res.data[0][0];
+                $scope.isSub = res.present;
+                $scope.isNotified = res.notified;
+            }, function (err) {
+              $scope.isSub = false;
+              $scope.isNotified = false;
+              })
+        }
+        $scope.isSubbed();
+        $http.get("https://tjkonnect.herokuapp.com/api/public/content/video/" + $rootScope.mySub.id + "/" + 1).then(function (res) {
+          $scope.videos = res.data[0];
+          console.log($scope.videos);
+        }) 
+          $scope.nav = function () {
+            $state.go($rootScope.state);
+          }
+        $scope.isNotified = true;
+        $scope.isSub = true;
 
 
     }])
-  .controller('comptCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+  .controller('comptCtrl', ['$scope', '$stateParams','$rootScope','$http','$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
       // You can include any angular dependencies as parameters for this function
       // TIP: Access Route Parameters for your page via $stateParams.parameterName
-      function ($scope, $stateParams) {
+    function ($scope, $stateParams, $rootScope, $http, $state) {
+      let Acontent = 0;
+      $scope.showContent = function (content) {
+
+        $rootScope.content = content;
+        $rootScope.state = 'tabs.competition';
+        $state.go('content')
+
+      }
+      $scope.contents = true;
+      $scope.content = false;
+      $scope.loader = true;
+      $http.get('https://tjkonnect.herokuapp.com/api/public/competitioncontents/1/'+ $rootScope.competition.hashTag).then(function (res) {
+        $scope.scontents = res.data[0];
+       
+        $scope.loader = false;
+      }, function (err) {
+        $scope.contents = [];
+        console.log(err);
+        $scope.loader = false;
+
+      })
         $scope.nav = function (ele) {
           console.log(ele);
           document.getElementById("Acontent").classList.remove("mactive");
           document.getElementById("Acontents").classList.remove("mactive");
+          //document.getElementById("Acompetition").classList.remove("mactive");
           document.getElementById(ele).classList.add("mactive");
           if (ele == 'Acontent') {
-            console.log(ele);
+         console.log($scope.contents)
 
-            if (Acontent == 0) {
-              $scope.contentsLoader = true;
-            
-
-            }
+          
 
             $scope.contents = false;
             $scope.content = true;
-            $scope.competition = false;
+           
           }
           if (ele == 'Acontents') {
-
-
+            
+            console.log($scope.contents);
 
             $scope.contents = true;
             $scope.content = false;
-            $scope.competition = false;
+       
           }
-          if (ele == 'Acompetition') {
-            $scope.contents = false;
-            $scope.content = false;
-            $scope.competition = true;
-          }
+         
 
         };
 
 
 
       }])
-  .controller('allSubCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+  .controller('allSubCtrl', ['$scope', '$stateParams', '$rootScope', '$state','$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams) {
-            alert("working")
-
+    function ($scope, $stateParams, $rootScope, $state, $http) {
+     
+      $scope.nav = function (sub) {
+        $rootScope.mySub = sub;
+        $rootScope.state = 'tabs.allSubscriptions';
+        $state.go("subscriber");
+       
+      }
 
         }])
     .controller('contentCtrl', ['$scope', '$stateParams', '$ionicLoading', '$http', '$rootScope','$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller

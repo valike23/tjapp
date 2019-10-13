@@ -109,7 +109,8 @@ angular.module('app.routes', [])
             })
 
             .state('subscriber', {
-                url: '/subs/subscriber',
+                url: '/subscribe',
+
                 templateUrl: 'templates/subscriber.html',
                 controller: 'subscriberCtrl'
             })

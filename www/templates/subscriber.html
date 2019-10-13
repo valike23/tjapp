@@ -1,26 +1,94 @@
-<ion-view title="subscriber" id="page10">
+<ion-view title="subscription" id="page10">
   <ion-nav-buttons side="left" class="has-header">
-    <button class="button button-icon icon ion-android-arrow-back"></button>
+    <button class="button button-icon icon ion-android-arrow-back" ng-click="nav()"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
     <div class="list card" id="subscriber-card21">
       <ion-item class="item-avatar positive" id="subscriber-list-item3">
-        <h2positive>Mark Dice
-          <p>mark Dice </p>
-        </h2positive>
+        <h2 class="positive">
+          {{mySub.username}}
+          <p>{{mySub.username}}</p>
+        </h2>
       </ion-item>
-      <div style="margin: 0px; line-height: 250px; background-color: rgb(232, 235, 239); text-align: center;">
+      <div style="margin: 0px; line-height: 250px; background-color: rgb(232, 235, 239); text-align: center; background-image:url('{{mySub.profilePics}}');background-size:cover">
         <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
       </div>
       <div class="item item-body" id="subscriber-list-item-container2">
         <div id="subscriber-markdown2" class="show-list-numbers-and-dots">
-          <p style="margin-top:0px;color:#000000;">Some friendly
+          <p style="margin-top:0px;color:#000000;">
+            Some friendly
             <strong>markdown</strong>
           </p>
         </div>
       </div>
       <ion-item class="item-icon-left assertive" id="subscriber-list-item4">
-        <i class="icon ion-music-note"></i>Play Song</ion-item>
+        <span class="pull-right">
+          <button ng-show="isSub" class="button button-assertive">subscribe</button> <button ng-hide="isSub" class="button">unsubscribe</button><button ng-hide="isNotified" style="font-size:30px" class="ion ion-ios-bell-outline button"></button><button ng-show="isNotified" style="font-size:30px" class="ion ion-ios-bell button"></button>
+        </span>
+    </div>
+    <div class="row " style="margin-bottom:-14px; ">
+      <div id="video" class="col-34 mactive tab" ng-click="mov('video')">
+        videos
+      </div>
+      <div id="music" class="col-33 tab" ng-click="mov('music')">
+        Music
+      </div>
+      <div id="post" style="" class="col-33 tab" ng-click="mov('post')">
+        Post
+      </div>
+    </div>
+    <div class="padding" ng-show="svideo">
+      <ion-scroll >
+        <ion-refresher on-refresh="doRefresh()" slot="fixed">
+          <ion-refresher-content pulling-icon="arrow-dropdown"
+                                 pulling-text="Pull to refresh"
+                                 refreshing-spinner="circles"
+                                 refreshing-text="Refreshing...">
+          </ion-refresher-content>
+        </ion-refresher>
+        <ion-list class="list">
+          <ion-item ng-click="showContent(video)" ng-repeat="video in videos" class="item">
+            <div class="row responsive-sm">
+              <div class="col-30 w3-display-container" style="margin-right:-30px; min-width:200px;background-image:url('{{video.thumbnail}}'); height: calc(100vh/3); background-size:cover">
+                <div style="background-color:black; color:white" class="w3-display-bottomright">{{video.duration}}</div>
+              </div>
+              <div class="col-70 padding">
+                <div class="hidden-sm row">
+                  <div class="col-xs-2 contentImage" style="background-image:url('{{video.thumbnail}}')"></div>
+                  <div class="col-xs-10">
+                    <div><strong>{{video.name}}</strong></div>
+                    <div>
+                      {{video.uploader}} . {{video.viewed + " views"}} . {{video.uploaded | date}}
+                    </div>
+                  </div>
+                </div>
+                <div style="margin-left:25px" class="hidden-xs">
+                  <div>
+                    <strong>
+                      {{video.name}}
+                    </strong>
+                  </div>
+
+                  <div>
+                    {{video.uploader}} . {{video.viewed + " views"}} . {{video.uploaded | date}}<br />
+                    <br />
+                    <div class="contentImage col-sm-2" style=" background-image:url('{{video.thumbnail}}')"></div>
+
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+           
+          
+          </ion-item>
+        </ion-list>
+        <ion-infinite-scroll ng-if="!noMoreItemsAvailable" immediate-check="false" on-infinite="loadMore()"
+                             distance="1%" spinner="bubbles">
+
+        </ion-infinite-scroll>
+      </ion-scroll>
     </div>
   </ion-content>
 </ion-view>
